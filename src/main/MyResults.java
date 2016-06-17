@@ -31,7 +31,7 @@ class MyResults {
         this.pocetVsetkych = vsetky;
         this.pocetSpravnych = spravne;
         this.chcem = chcemm;    
-        String path = "HiraganaObr/" + id + ".PNG"; //////////////////CESTA K FILU
+        String path = "HiraganaObr/" + id + ".png"; //////////////////CESTA K FILU
         System.out.println("Idem nacitavat obrazok " + path);
         this.obrazokJP = new Image(path);
         System.out.println("Nacitaval som obrazok " + path);        

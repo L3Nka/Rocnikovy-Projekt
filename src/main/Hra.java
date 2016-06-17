@@ -8,7 +8,9 @@ package main;
 import java.util.Vector;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -46,19 +48,22 @@ public abstract class Hra {
         //ScrollPane scrollpane = new ScrollPane();
         BorderPane root = new BorderPane();
         if (zleOdpovede==null || zleOdpovede.size()==0){
-            Label lab = new Label("Gratulujeme, mate 100%!!\n\n");
-            Pane pan = new Pane();
+            Label lab = new Label("Gratulujeme, máte 100%!!\n\n");
+            Pane pan = new VBox();
+            pan.setId("vyhodnotenie_vysledok");
             pan.getChildren().add(lab);
             root.setCenter(pan);
         }
         else {
             Pane stlp = new VBox();
+            stlp.setId("panel_s_nespravnymi_vbox");
             System.out.println("pocet otazok " + pocetOtazok);
             System.out.println("zle odpo. size " + zleOdpovede.size());
             int uspesnost = 100-((100*(zleOdpovede.size()/2))/pocetOtazok);
-            Label lab = new Label("Vasa uspesnost je " + uspesnost + "%\n");
-            Label lab2 = new Label("Pozrite si vase zle odpovede:\n\n");
-            stlp.getChildren().addAll(lab,lab2);
+            Label lab = new Label("Vaša úspešnosť je " + uspesnost + "%\n");
+            Label lab2 = new Label("Pozrite si vaše zlé odpovede:\n\n");
+            Label lab3 = new Label("(Sú v tvare \"znak - sk - jp\")\n\n");
+            stlp.getChildren().addAll(lab,lab2,lab3);
             for (int i=0;i<zleOdpovede.size();i++){
                 Pane riadok = new HBox();
                 Label sk = new Label("  "+zleOdpovede.get(i).getSlovenskyString()+ "  ");
@@ -70,23 +75,36 @@ public abstract class Hra {
                 riadok.getChildren().addAll(sk,jp);
                 stlp.setPadding(new Insets(20));
                 stlp.getChildren().addAll(riadok);
+                riadok.setId("panel_s_jednym_nespravnym_riadok_hboxu");                
+                //VBox.layoutInArea(riadok, 0, 0, 0, 0, 0, Insets.EMPTY, true, true, HPos.CENTER, VPos.CENTER, true);
             }
             ScrollPane scrollPane = new ScrollPane();
+            scrollPane.setFitToWidth(true);
+            scrollPane.setFitToHeight(true);
+            scrollPane.setMaxWidth(Sceny.sirka / 2);
+            
             scrollPane.setContent(stlp);
+            scrollPane.setId("vyhodnotenie_vysledok");
             root.setCenter(scrollPane);
         }
-        Pane p = new Pane();
+        Pane p = new VBox();
         Button menu = new Button("Menu");
         menu.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                primaryStage.setScene(Sceny.getMenu(primaryStage));
+                Scene sc = Sceny.getMenu(primaryStage);
+                primaryStage.setScene(sc);
+                Sceny.NastavPozadie(primaryStage, sc);
             }
         });  
         p.getChildren().add(menu);
+        p.setId("panel_s_jednym_buttonom_menu");
         root.setBottom(p);
         root.setPrefHeight(300);
-        return new Scene(root);
+        root.setId("vyhodnotenie");
+        Scene sc = new Scene(root);
+        Sceny.NastavPozadie(primaryStage, sc);
+        return sc;
     }
         
 }
