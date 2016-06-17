@@ -61,7 +61,7 @@ public abstract class Hra {
             System.out.println("zle odpo. size " + zleOdpovede.size());
             int uspesnost = 100-((100*(zleOdpovede.size()/2))/pocetOtazok);
             Label lab = new Label("Vaša úspešnosť je " + uspesnost + "%\n");
-            Label lab2 = new Label("Pozrite si vaše zlé odpovede:\n\n");
+            Label lab2 = new Label("Prezrite si, čo ste nevedeli:\n\n");
             Label lab3 = new Label("(Sú v tvare \"znak - sk - jp\")\n\n");
             stlp.getChildren().addAll(lab,lab2,lab3);
             for (int i=0;i<zleOdpovede.size();i++){
