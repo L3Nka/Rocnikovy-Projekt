@@ -46,7 +46,6 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import jdk.nashorn.internal.runtime.regexp.joni.EncodingHelper;
 
 /**
  * Obsahuje pokope skoro vsetky sceny.
